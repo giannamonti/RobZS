@@ -1,11 +1,17 @@
 Package: RobZS
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Robust ZeroSum Regression
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Gianna",
+           family = "Monti",
+           role = c("cre", "aut"),
+           email = "gianna.monti@unimib.it")
+Description: R-package for robust elastic net regularized
+    regression with zero sum constraint.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+URL: https://github.com/giannamonti/RobZS
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1

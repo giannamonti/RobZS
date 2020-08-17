@@ -20,7 +20,8 @@ usethis::use_build_ignore("dev")
 usethis::use_description(
   list(
     Title = "Robust ZeroSum Regression",
-    `Authors@R` = "person('Gianna', 'Monti', email = 'gianna.monti@unimib.it', role = c('cre', 'aut'))",
+    `Authors@R` = "person('Gianna', 'Monti', 
+    								email = 'gianna.monti@unimib.it', role = c('cre', 'aut'))",
     Description = "R-package for robust elastic net regularized regression with zero sum constraint.",
     URL = "https://github.com/giannamonti/RobZS"
   )
@@ -31,7 +32,7 @@ usethis::use_tidy_description()                           # sort fields and pack
 ## Common tasks
 usethis::use_readme_md( open = FALSE )
 # usethis::use_code_of_conduct()
-# usethis::use_lifecycle_badge( "Experimental" )
+usethis::use_lifecycle_badge( "Experimental" )
 # usethis::use_news_md( open = FALSE )
 
 

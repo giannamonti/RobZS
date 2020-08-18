@@ -2,10 +2,14 @@ Package: RobZS
 Title: Robust ZeroSum Regression
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Gianna",
+    c(person(given = "Gianna",
            family = "Monti",
            role = c("cre", "aut"),
-           email = "gianna.monti@unimib.it")
+           email = "gianna.monti@unimib.it"),
+           person(given = "Peter",
+           family = "Filzmoser",
+           role = c("aut"),
+           email = "peter.filzmoser@tuwien.ac.at"))
 Description: R-package for robust elastic net regularized
     regression with zero sum constraint.
 License: LGPL (>= 2.1)

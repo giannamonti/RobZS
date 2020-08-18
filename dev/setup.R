@@ -20,14 +20,33 @@ usethis::use_build_ignore("dev")
 usethis::use_description(
   list(
     Title = "Robust ZeroSum Regression",
-    `Authors@R` = "person('Gianna', 'Monti', 
-    								email = 'gianna.monti@unimib.it', role = c('cre', 'aut'))",
+    `Authors@R` = c(person(given = "Gianna",
+    											 family = "Monti",
+    											 role = c("cre", "aut"),
+    											 email = "gianna.monti@unimib.it"),
+    								person(given = "Peter",
+    											 family = "Filzmoser",
+    											 role = c("aut"),
+    											 email = "peter.filzmoser@tuwien.ac.at")),
     Description = "R-package for robust elastic net regularized regression with zero sum constraint.",
-    URL = "https://github.com/giannamonti/RobZS"
+    URL = "https://github.com/giannamonti/RobZS",
   )
 )
 usethis::use_lgpl_license( name = "Gianna Monti" )  # You can set another license here
+
+usethis::use_package("parallel")
+usethis::use_package("grid")
+usethis::use_package("reshape")
+usethis::use_package("glmnet")
+usethis::use_package("cvTools")
+usethis::use_package("robustHD")
+usethis::use_package("MASS")
+usethis::use_package("zeroSum")
+usethis::use_package("mvtnorm")
+
 usethis::use_tidy_description()                           # sort fields and packages
+
+
 
 ## Common tasks
 usethis::use_readme_md( open = FALSE )

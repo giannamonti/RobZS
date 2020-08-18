@@ -1,5 +1,16 @@
 
-plotCoef.enetLTS0 <- function(object,vers=c("reweighted","raw"),
+#' plotCoef.RobZS
+#'
+#' @param object
+#' @param vers
+#' @param colors
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+plotCoef.RobZS <- function(object,vers=c("reweighted","raw"),
                                       colors=NULL,...){
 
    nam <- NULL

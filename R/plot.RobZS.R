@@ -1,6 +1,16 @@
 
-
-plot.enetLTS0 <- function(x,method=c("coefficients","resid","diagnostic"),
+#' plot.RobZS
+#'
+#' @param x
+#' @param method
+#' @param vers
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+plot.RobZS <- function(x,method=c("coefficients","resid","diagnostic"),
                          vers=c("reweighted","raw"),...){
    #  require(ggplot2)
 

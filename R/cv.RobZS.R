@@ -1,4 +1,22 @@
-cv.enetLTS0 <- function(index=NULL,xx,yy,family,h,alphas,
+#' cv.RobZS
+#'
+#' @param index
+#' @param xx
+#' @param yy
+#' @param family
+#' @param h
+#' @param alphas
+#' @param lambdas
+#' @param nfold
+#' @param repl
+#' @param ncores
+#' @param plot
+#'
+#' @return
+#' @export
+#'
+#' @examples
+cv.RobZS <- function(index=NULL,xx,yy,family,h,alphas,
                         lambdas,nfold,repl,ncores,plot=TRUE){
 
    RTMSPE <- RMSPE <- NULL

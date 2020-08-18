@@ -3,20 +3,29 @@ Title: Robust ZeroSum Regression
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Gianna",
-           family = "Monti",
-           role = c("cre", "aut"),
-           email = "gianna.monti@unimib.it"),
-           person(given = "Peter",
-           family = "Filzmoser",
-           role = c("aut"),
-           email = "peter.filzmoser@tuwien.ac.at"))
+             family = "Monti",
+             role = c("cre", "aut"),
+             email = "gianna.monti@unimib.it"),
+      person(given = "Peter",
+             family = "Filzmoser",
+             role = "aut",
+             email = "peter.filzmoser@tuwien.ac.at"))
 Description: R-package for robust elastic net regularized
     regression with zero sum constraint.
 License: LGPL (>= 2.1)
 URL: https://github.com/giannamonti/RobZS
+Imports: 
+    cvTools,
+    glmnet,
+    grid,
+    MASS,
+    mvtnorm,
+    parallel,
+    reshape,
+    robustHD
+Suggests: 
+    testthat
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Suggests: 
-    testthat

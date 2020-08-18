@@ -1,5 +1,16 @@
 
-print.enetLTS0 <-
+#' print.RobZS
+#'
+#' @param x
+#' @param vers
+#' @param zeros
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+print.RobZS <-
    function(x,vers=c("reweighted","raw"),zeros=FALSE,...){
 
       # require(enetLTS0)

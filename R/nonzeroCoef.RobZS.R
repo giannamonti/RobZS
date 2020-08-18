@@ -1,5 +1,13 @@
 
-nonzeroCoef.enetLTS0  <- function (beta)
+#' nonzeroCoef.RobZS
+#'
+#' @param beta
+#'
+#' @return
+#' @export
+#'
+#' @examples
+nonzeroCoef.RobZS  <- function (beta)
 {
   beta <- as.matrix(beta)
   beta <- abs(beta)>0

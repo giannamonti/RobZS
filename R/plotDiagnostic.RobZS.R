@@ -1,5 +1,15 @@
 
-plotDiagnostic.enetLTS0 <- function(object,vers=c("reweighted","raw"),...){
+#' plotDiagnostic.RobZS
+#'
+#' @param object
+#' @param vers
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+plotDiagnostic.RobZS <- function(object,vers=c("reweighted","raw"),...){
 
    vers <- match.arg(vers)
    family <- object$inputs$family

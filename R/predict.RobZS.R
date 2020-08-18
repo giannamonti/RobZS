@@ -1,6 +1,18 @@
 
 
-predict.enetLTS0 <-
+#' predict.RobZS
+#'
+#' @param object
+#' @param newX
+#' @param vers
+#' @param type0
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+predict.RobZS <-
    function(object,newX,vers=c("reweighted","raw","both"),
             type0=c("response","coefficients","nonzero"),...)
    {

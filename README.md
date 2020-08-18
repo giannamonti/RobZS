@@ -10,23 +10,16 @@ RobZS is  an R-package for fitting robust linear log-contrast models [1] combine
 By combining the least trimmed squares (LTS) objective function with the elastic-net penalty, Monti et al. (2020) [3] introduced the sparse least trimmed squares estimator with compositional
 covariates for high dimensional data. They proposed a trimmed version of the ZeroSum estimator [4].
 
+Most part of the R code is adapted from [5].
 
 ## Installation
 
-You can install the released version of RobZS from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of RobZS from [GitHub](https://github.com) with:
 
 ``` r
-install.packages("RobZS")
+devtools::install_github("giannamonti/RobZS")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(RobZS)
-## basic example code
-```
 
 ## References
 
@@ -35,3 +28,4 @@ library(RobZS)
 3. Monti GS, Filzmoser, P (2020) Sparse least trimmed squares regression with compositional
 covariates for high dimensional data, _submitted manuscript_
 4. Altenbuchinger M, Rehberg T, Zacharias HU, et al. (2017) Reference point insensitive molecular data analysis. Bioinformatics; 33 2: 219-226.
+5. Kurnaz FS, Hoffmann I, Filzmoser P (2018) Robust and sparse estimation methods for high-dimensional linear and logistic regression. Chemometrics and Intelligent Laboratory Systems; 172: 211 - 222.

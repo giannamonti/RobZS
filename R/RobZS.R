@@ -1,4 +1,31 @@
 
+#' RobZS
+#'
+#' @param xx
+#' @param yy
+#' @param family
+#' @param alphas
+#' @param lambdas
+#' @param lambdaw
+#' @param hsize
+#' @param intercept
+#' @param nsamp
+#' @param s1
+#' @param nCsteps
+#' @param nfold
+#' @param seed
+#' @param plot
+#' @param repl
+#' @param para
+#' @param ncores
+#' @param del
+#' @param tol
+#' @param type0
+#'
+#' @return
+#' @export
+#'
+#' @examples
 RobZS <-
 function(xx,yy,family=c("gaussian"),
          alphas,lambdas,lambdaw, hsize=0.75,

@@ -1,5 +1,15 @@
 
-residuals.enetLTS0 <-
+#' residuals.RobZS
+#'
+#' @param object
+#' @param vers
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+residuals.RobZS <-
    function(object,vers=c("reweighted","raw","both"),...){
 
       vers <- match.arg(vers)

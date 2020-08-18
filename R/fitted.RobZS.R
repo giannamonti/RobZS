@@ -1,5 +1,16 @@
 
-fitted.enetLTS0 <-
+#' fitted.RobZS
+#'
+#' @param object
+#' @param vers
+#' @param type0
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+fitted.RobZS <-
    function(object,vers=c("reweighted","raw","both"),type0=c("response"),...){
 
       vers <- match.arg(vers)

@@ -1,5 +1,15 @@
 
-plotResid.enetLTS0 <- function(object,vers=c("reweighted","raw"),...){
+#' plotResid.RobZS
+#'
+#' @param object
+#' @param vers
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+plotResid.RobZS <- function(object,vers=c("reweighted","raw"),...){
 
 
    vers <- match.arg(vers)

@@ -1,5 +1,16 @@
 
-weights.enetLTS0 <-
+#' weights.RobZS
+#'
+#' @param object
+#' @param vers
+#' @param index
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+weights.RobZS <-
    function(object,vers=c("reweighted","raw","both"),index=FALSE,...){
 
       vers <- match.arg(vers)

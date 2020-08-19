@@ -57,7 +57,7 @@ CStep0 <- function(x,y,family,indx,h,hsize,alpha,lambda){
 
    # require(glmnet)
    # source("utilities.R")
-   # source("objectiveFunc0.R")
+   # source("objectiveFunc1.R")
 
    n <- nrow(x)
    fit <- zeroSum(x[indx,],y[indx],family,

@@ -22,7 +22,8 @@ Imports:
     mvtnorm,
     parallel,
     reshape,
-    robustHD
+    robustHD,
+    zeroSum
 Suggests: 
     testthat
 Encoding: UTF-8

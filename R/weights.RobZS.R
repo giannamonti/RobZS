@@ -1,4 +1,3 @@
-
 #' weights.RobZS
 #'
 #' @param object

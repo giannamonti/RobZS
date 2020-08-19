@@ -1,5 +1,3 @@
-
-
 prepara0 <- function(x,y,family,index=NULL,robu=NULL){
   # default classical scale, robust scale for robu=1
 
@@ -40,7 +38,7 @@ weight.gaussian <- function(resi,ind,del){
   n <- length(resi)
   mu <- mean(resi[ind])
   rc <- (resi - mu)
-  qn <- qnorm((h+n)/ (2*n))                         # required quantile
+  qn <- qnorm((h+n)/ (2*n))   # required quantile
   cdelta <- 1 / sqrt(1 - (2*n)/(h/qn) * dnorm(qn))
   s <- sqrt(mean(rc[ind]^2)) * cdelta
   we <- as.integer(abs(rc/s) <= qnorm(1-del))

@@ -24,7 +24,6 @@ fitted.RobZS <-
          raw.coefficients <- c(object$a00,object$raw.coefficients)
       }
 
-
          if (vers=="reweighted"){
             res=as.matrix(object$inputs$x %*% reweighted.coefficients)
             nfit <- list(fitted.values=res)

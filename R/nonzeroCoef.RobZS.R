@@ -7,8 +7,7 @@
 #' @export
 #'
 #' @examples
-nonzeroCoef.RobZS  <- function (beta)
-{
+nonzeroCoef.RobZS  <- function (beta){
   beta <- as.matrix(beta)
   beta <- abs(beta)>0
   beta <- which(beta)

@@ -1,4 +1,3 @@
-
 #' RobZS
 #'
 #' @param xx
@@ -39,7 +38,7 @@ function(xx,yy,family=c("gaussian"),
 				 )
 {
    matchedCall <- match.call()
-   matchedCall[[1]] <- as.name("enetLTS0")
+   matchedCall[[1]] <- as.name("RobZS")
    family <- match.arg(family)
    type0 <- match.arg(type0)
 
@@ -89,7 +88,7 @@ function(xx,yy,family=c("gaussian"),
       alphabest <- alphas
       lambdabest <- lambdas
    } else {
-      CVresults <- cv.enetLTS0(indexall,x,y,family,h,alphas,lambdas,nfold,repl,ncores,plot)
+      CVresults <- cv.RobZS(indexall,x,y,family,h,alphas,lambdas,nfold,repl,ncores,plot)
       indexbest <- CVresults$indexbest
       alphabest <- CVresults$alphaopt
       lambdabest <- CVresults$lambdaopt

@@ -28,7 +28,7 @@ cv.RobZS <- function(index=NULL,xx,yy,family,h,alphas,
    if (missing(alphas)) stop("provide an alphas sequence")
    if (missing(lambdas)) stop("provide an lambdas sequence")
 
-   lambdaCrit <- evalCrit <- matrix(NA,nrow=length(lambdas),ncol=length(alphas)) ### PF modified
+   lambdaCrit <- evalCrit <- matrix(NA,nrow=length(lambdas),ncol=length(alphas))
    dimnames(lambdaCrit) <- dimnames(evalCrit) <- list(paste("lambdas",lambdas),paste("alpha",alphas))
 
    combis_ind <- expand.grid(1:length(lambdas), 1:length(alphas))
@@ -61,25 +61,22 @@ cv.RobZS <- function(index=NULL,xx,yy,family,h,alphas,
                ytest <- y[folds$subsets[folds$which == f,1] ]
             res <- tryCatch({
                hpen <- length(ytrain)
-               trainmod <- zeroSum(xtrain,ytrain,family,
-                                  alpha=alpha,lambda=lambda, ### /hpen, # use original lambda values
+               trainmod <- zeroSum(xtrain,ytrain,family,alpha=alpha,lambda=lambda,
                											 standardize=FALSE, intercept=FALSE)},error=function(err){
                                      error <- TRUE
-                                     return(error)
-                                  })
+                                     return(error)})
             if (is.logical(res)){
                print(paste("CV broke off for alpha=",alpha ,"and lambda=", lambda))
             } else{
                trainmod <- res
                beta=trainmod$coef[[1]]
-                  loss[folds$which == f ] <- ytest - xtest %*% matrix(beta[-1])
+               loss[folds$which == f ] <- ytest - xtest %*% matrix(beta[-1])
             }
          }
             evalCritl[l] <- sqrt(mean(loss^2))
-
       }
 
-      return(list(lambda_ind = i, alpha_ind = j, lambdatrue=res$LambdaMin, ### PF modified
+      return(list(lambda_ind = i, alpha_ind = j, lambdatrue=res$LambdaMin,
                   evalCritl = evalCritl))
    }
 
@@ -142,5 +139,6 @@ cv.RobZS <- function(index=NULL,xx,yy,family,h,alphas,
       print(mspeplot, vp=viewport(layout.pos.row=1, layout.pos.col=1))
    }
 
-   return(list(evalCrit=evalCrit,minevalCrit=minevalCrit,indexbest=indexbest,lambdaopt=lambda,alphaopt=alpha,minlambdaCrit=minlambdaCrit))
+   return(list(evalCrit=evalCrit,minevalCrit=minevalCrit,indexbest=indexbest,
+   						lambdaopt=lambda,alphaopt=alpha,minlambdaCrit=minlambdaCrit))
 }

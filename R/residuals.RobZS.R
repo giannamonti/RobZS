@@ -1,4 +1,3 @@
-
 #' residuals.RobZS
 #'
 #' @param object

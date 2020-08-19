@@ -20,12 +20,12 @@ plot.RobZS <- function(x,method=c("coefficients","resid","diagnostic"),
    ## call plot function
 
       if (missing("method")){
-         plotCoef.enetLTS0(x,vers=vers,...)
-         plotResid.enetLTS0(x,vers=vers,...)
-         plotDiagnostic.enetLTS0(x,vers=vers,...) }
-      else if(method == "coefficients") plotCoef.enetLTS0(x,vers=vers,...)
-      else if(method == "resid") plotResid.enetLTS0(x,vers=vers,...)
-      else if(method == "diagnostic") plotDiagnostic.enetLTS0(x,vers=vers,...)
+         plotCoef.RobZS(x,vers=vers,...)
+         plotResid.RobZS(x,vers=vers,...)
+         plotDiagnostic.RobZS(x,vers=vers,...) }
+      else if(method == "coefficients") plotCoef.RobZS(x,vers=vers,...)
+      else if(method == "resid") plotResid.RobZS(x,vers=vers,...)
+      else if(method == "diagnostic") plotDiagnostic.RobZS(x,vers=vers,...)
 
 }
 

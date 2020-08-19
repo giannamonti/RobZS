@@ -1,5 +1,3 @@
-
-
 #' predict.RobZS
 #'
 #' @param object
@@ -48,15 +46,16 @@ predict.RobZS <-
          if (type0=="coefficients") return(out)
          if (type0=="nonzero"){
             if (vers=="reweighted"){
-               reweighted.nonzeroCoef=nonzeroCoef.enetLTS0(reweighted.coefficients)
+               reweighted.nonzeroCoef=nonzeroCoef.RobZS(reweighted.coefficients)
                out.nonzero <- list(reweighted.nonzeroCoef=reweighted.nonzeroCoef)
             } else if (vers=="raw"){
-               raw.nonzeroCoef=nonzeroCoef.enetLTS0(raw.coefficients)
+               raw.nonzeroCoef=nonzeroCoef.RobZS(raw.coefficients)
                out.nonzero <- list(raw.nonzeroCoef=raw.nonzeroCoef)
             } else if (vers=="both"){
-               reweighted.nonzeroCoef <- nonzeroCoef.enetLTS0(reweighted.coefficients)
-               raw.nonzeroCoef <- nonzeroCoef.enetLTS0(raw.coefficients)
-               out.nonzero <- list(reweighted.nonzeroCoef=reweighted.nonzeroCoef,raw.nonzeroCoef=raw.nonzeroCoef)
+               reweighted.nonzeroCoef <- nonzeroCoef.RobZS(reweighted.coefficients)
+               raw.nonzeroCoef <- nonzeroCoef.RobZS(raw.coefficients)
+               out.nonzero <- list(reweighted.nonzeroCoef=reweighted.nonzeroCoef,
+               										raw.nonzeroCoef=raw.nonzeroCoef)
             }
             return(out.nonzero)
          }
@@ -83,15 +82,16 @@ predict.RobZS <-
          if (type0=="coefficients") return(out)
          if (type0=="nonzero"){
             if (vers=="reweighted"){
-               reweighted.nonzeroCoef=nonzeroCoef.enetLTS0(reweighted.coefficients)
+               reweighted.nonzeroCoef=nonzeroCoef.RobZS(reweighted.coefficients)
                out.nonzero <- list(reweighted.nonzeroCoef=reweighted.nonzeroCoef)
             } else if (vers=="raw"){
-               raw.nonzeroCoef=nonzeroCoef.enetLTS0(raw.coefficients)
+               raw.nonzeroCoef=nonzeroCoef.RobZS(raw.coefficients)
                out.nonzero <- list(raw.nonzeroCoef=raw.nonzeroCoef)
             } else if (vers=="both"){
-               reweighted.nonzeroCoef=nonzeroCoef.enetLTS0(reweighted.coefficients)
-               raw.nonzeroCoef=nonzeroCoef.enetLTS0(raw.coefficients)
-               out.nonzero <- list(reweighted.nonzeroCoef=reweighted.nonzeroCoef,raw.nonzeroCoef=raw.nonzeroCoef)
+               reweighted.nonzeroCoef=nonzeroCoef.RobZS(reweighted.coefficients)
+               raw.nonzeroCoef=nonzeroCoef.RobZS(raw.coefficients)
+               out.nonzero <- list(reweighted.nonzeroCoef=reweighted.nonzeroCoef,
+               										raw.nonzeroCoef=raw.nonzeroCoef)
             }
             return(out.nonzero)
          }

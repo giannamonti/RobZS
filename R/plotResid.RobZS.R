@@ -11,7 +11,6 @@
 #' @examples
 plotResid.RobZS <- function(object,vers=c("reweighted","raw"),...){
 
-
    vers <- match.arg(vers)
    family <- object$inputs$family
 

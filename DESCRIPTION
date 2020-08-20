@@ -23,7 +23,7 @@ Imports:
     parallel,
     reshape,
     robustHD,
-    zerosum
+    zeroSum
 Suggests: 
     testthat
 Encoding: UTF-8

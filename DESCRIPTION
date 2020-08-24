@@ -2,7 +2,7 @@ Package: RobZS
 Title: Robust ZeroSum Regression
 Version: 0.0.0.9000
 Authors@R: 
-    c(person(given = "Gianna",
+    c(person(given = "Gianna S.",
              family = "Monti",
              role = c("cre", "aut"),
              email = "gianna.monti@unimib.it"),

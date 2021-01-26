@@ -1,11 +1,11 @@
 
 beginningCstep0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,ncores,csteps,tol,para,seed){
- ## internal function for Cstep0 and warmCsteps0
+   ## internal function for Cstep0 and warmCsteps0
 
- #  source("objectiveFunc0.R")
- #  source("InitialSubsets0.R")
- #  source("Csteps0.R")
- #  source("utilities.R")
+   #  source("objectiveFunc0.R")
+   #  source("InitialSubsets0.R")
+   #  source("Csteps0.R")
+   #  source("utilities.R")
 
    H2 <- selectbest10zero(x,y,family,h,hsize,alpha,lambda,nsamp,s1,para,ncores,seed)
    if (para){
@@ -52,25 +52,46 @@ beginningCstep0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,ncores,cste
 }
 
 
-CStep0 <- function(x,y,family,indx,h,hsize,alpha,lambda){
-   ## internal function
+CStep0 <-
+   function(x,y,family,indx,h,hsize,alpha,lambda)
+   {
+      ## internal function
 
-   # require(glmnet)
-   # source("utilities.R")
-   # source("objectiveFunc1.R")
+      # require(glmnet)
+      # source("utilities.R")
+      # source("objectiveFunc1.R")
 
-   n <- nrow(x)
-   fit <- zeroSum(x[indx,],y[indx],family,
-                           alpha=alpha,lambda=lambda,
-                           standardize=FALSE, intercept=FALSE)
-   beta <- fit$coef[[1]]
-   beta <- matrix(beta[-1])
-   resid <- y - predict(fit,x,exact=TRUE)
-   resid.sort <- sort(abs(resid),index.return=TRUE)
-   indxnew <- resid.sort$ix[1:h]
-   obj <- Objval0(x,y,family,beta,indxnew,alpha,lambda)
-   return(list(object=obj,index=indxnew,residu=resid,beta=beta))
-}
+      n <- nrow(x)
+
+      if (family=="binomial"){
+         fit <- zeroSum(x[indx,],y[indx],family,alpha=alpha,lambda=lambda,
+                        standardize=FALSE, intercept=FALSE)
+         beta <- fit$coef[[1]]
+         beta <- matrix(beta[-1])
+         resid <- -(y * x %*% beta) + log(1+exp(x %*% beta))
+         if(all(beta==0)){return(list(object=-Inf,index=indx,residu=resid,beta=beta))}
+         resid.sort <- sort(resid,decreasing=FALSE,index.return=TRUE)
+         h0 <- floor((length(y[y==0])+1)*hsize)
+         h1 <- h-h0
+         index0 <- resid.sort$ix[y[resid.sort$ix]==0][1:h0]
+         index1 <- resid.sort$ix[y[resid.sort$ix]==1][1:h1]
+         indxnew <- c(index0,index1)
+      }else if(family=="gaussian"){
+         fit <- zeroSum(x[indx,],y[indx],family,
+                        alpha=alpha,lambda=lambda,
+                        standardize=FALSE, intercept=FALSE)
+         beta <- fit$coef[[1]]
+         beta <- matrix(beta[-1])
+         resid <- y - predict(fit,x,exact=TRUE)
+         resid.sort <- sort(abs(resid),index.return=TRUE)
+         indxnew <- resid.sort$ix[1:h]
+      }
+      obj <- Objval0(x,y,family,beta,indxnew,alpha,lambda)
+
+      return(list(object=obj,index=indxnew,residu=resid,beta=beta))
+   }
+
+
 
 
 

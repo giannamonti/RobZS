@@ -11,7 +11,13 @@ selectbest10zero <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,para,ncore
    }else{
       for (i in 1:nsamp){ obj <- c(obj,subsets[[i]]$obj) }
    }
-   obj_sorted <- sort(obj,decreasing=FALSE,index.return=TRUE)
+
+   if(family=="binomial"){
+      obj_sorted <- sort(obj,decreasing=TRUE,index.return=TRUE)
+   } else if(family=="gaussian"){
+      obj_sorted <- sort(obj,decreasing=FALSE,index.return=TRUE)
+   }
+
    obj <- obj_sorted$x[1:s1]
    s1_new <- length(obj[!is.infinite(obj)])
    idx <- obj_sorted$ix[1:s1_new]
@@ -35,12 +41,19 @@ selectbest10zero <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,para,ncore
 InitialSubset0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,para,ncores,seed) {
    # gives initial 500 subsamples after Two C Steps
    if (!is.null(seed)) set.seed(1)
+
+   if (family=="binomial"){
+      index.subsets <- replicate(nsamp,c(sample(which(y==1),2),sample(which(y==0),2)))
+   } else if (family=="gaussian"){
       index.subsets <- replicate(nsamp,sample.int(nrow(x), 3))
+   }
+
    twoCstep <- function(c,x,y,family,index.subsets,h,hsize,alpha,lambda){
 
       ## C step 1
-    if(floor(c/100)==c/100) print(c)
-          Cstep1 <- CStep0(x,y,family,index.subsets[,c],h,hsize,alpha,lambda)
+      if(floor(c/100)==c/100) print(c)
+
+      Cstep1 <- CStep0(x,y,family,index.subsets[,c],h,hsize,alpha,lambda)
       indx1 <- Cstep1$index
       object1 <- Cstep1$object
 

@@ -5,7 +5,7 @@
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-RobZS is  an R-package for fitting robust linear log-contrast models [1], combined with the elastic-net regularization [2].
+RobZS is an R-package for fitting robust linear log-contrast models [1] combined with the elastic-net regularization [2].
 
 By combining the least trimmed squares (LTS) objective function with the elastic-net penalty, Monti et al. (2020) introduced the sparse least trimmed squares estimator with compositional
 covariates for high dimensional data with continuos [3] and binary [4] response. They proposed a trimmed version of the ZeroSum estimator [5].

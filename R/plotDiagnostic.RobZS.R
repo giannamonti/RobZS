@@ -24,6 +24,37 @@ plotDiagnostic.RobZS <- function(object,vers=c("reweighted","raw"),...){
       coefficients <- object$coefficients
       raw.coefficients <- object$raw.coefficients
    }
+
+   if (family=="binomial"){
+      if (vers=="reweighted"){
+
+         outind <- factor(as.numeric(object$raw.wt==0))
+         xcoefficients <- x%*%coefficients
+         names(xcoefficients) <- 1:length(xcoefficients)
+         plot.xcoefficients <- data.frame(xcoefficients=xcoefficients,nam=names(xcoefficients),
+                                          llim=xcoefficients,ulim=xcoefficients)
+         xcoef.fit <- ggplot(plot.xcoefficients,aes(x=xcoefficients,y=y,color=outind,shape=outind)) + geom_point()
+         xcoef.fit <- xcoef.fit + scale_colour_discrete(name="classification",breaks=c("0", "1"),labels=c("good","outlier")) +
+            scale_shape_discrete(name="classification",breaks=c("0", "1"),labels=c("good","outlier")) +
+            ggtitle(expression(paste("y vs ", X*beta, " for logistic regression"))) +
+            xlab(expression(X*beta))
+         print(xcoef.fit)
+
+      } else if (vers=="raw"){
+
+         classification <- factor(as.numeric(!c(1:length(y))%in%object$best))
+         xraw.coefficients <- x%*%raw.coefficients
+         names(xraw.coefficients) <- 1:length(xraw.coefficients)
+         plot.xraw.coefficients <- data.frame(xraw.coefficients=xraw.coefficients,nam=names(xraw.coefficients),
+                                              llim=xraw.coefficients,ulim=xraw.coefficients)
+         raw.xcoef.fit <- ggplot(plot.xraw.coefficients,aes(x=xraw.coefficients,y=y,color=classification,shape=classification))+
+            geom_point()
+         raw.xcoef.fit <- raw.xcoef.fit + scale_colour_discrete(name="classification",breaks=c("0", "1"),labels=c("best subset","outlier")) +
+            scale_shape_discrete(name="classification",breaks=c("0", "1"),labels=c("best subset","outlier")) +
+            ggtitle(expression(paste("y vs ", X*beta, " with raw coefficients for logistic regression"))) + xlab(expression(X*beta))
+         print(raw.xcoef.fit)
+      }
+   } else if (family=="gaussian"){
       if (vers=="reweighted"){
 
          outind <- factor(as.numeric(object$raw.wt==0))
@@ -51,5 +82,6 @@ plotDiagnostic.RobZS <- function(object,vers=c("reweighted","raw"),...){
             ggtitle("y vs raw fitted values for regression")
          print(raw.plot.fit)
       }
+   }
 }
 

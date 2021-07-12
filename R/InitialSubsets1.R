@@ -1,7 +1,7 @@
 
-selectbest10zero <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,para,ncores,seed) {
+selectbest10zero <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,para,ncores,intercept,scal,seed) {
    obj <- NULL
-   all_subsets <- InitialSubset0(x,y,family,h,hsize,alpha,lambda,nsamp,para,ncores, seed)
+   all_subsets <- InitialSubset0(x,y,family,h,hsize,alpha,lambda,nsamp,para,ncores,intercept,scal,seed)
    subsets <- all_subsets$subsets
    index.subsets <- all_subsets$index.subsets
    if (para){
@@ -38,7 +38,7 @@ selectbest10zero <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,para,ncore
 }
 
 
-InitialSubset0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,para,ncores,seed) {
+InitialSubset0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,para,ncores,intercept,scal,seed) {
    # gives initial 500 subsamples after Two C Steps
    if (!is.null(seed)) set.seed(1)
 
@@ -48,17 +48,17 @@ InitialSubset0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,para,ncores,see
       index.subsets <- replicate(nsamp,sample.int(nrow(x), 3))
    }
 
-   twoCstep <- function(c,x,y,family,index.subsets,h,hsize,alpha,lambda){
+   twoCstep <- function(c,x,y,family,index.subsets,h,hsize,alpha,lambda,intercept,scal){
 
       ## C step 1
       if(floor(c/100)==c/100) print(c)
 
-      Cstep1 <- CStep0(x,y,family,index.subsets[,c],h,hsize,alpha,lambda)
+      Cstep1 <- CStep0(x,y,family,index.subsets[,c],h,hsize,alpha,lambda,intercept,scal=scal)
       indx1 <- Cstep1$index
       object1 <- Cstep1$object
 
       ## C step 2
-      Cstep2 <- CStep0(x,y,family,indx1,h,hsize,alpha,lambda) # h observations
+      Cstep2 <- CStep0(x,y,family,indx1,h,hsize,alpha,lambda,intercept,scal=scal) # h observations
       indx2 <- Cstep2$index
       object <- Cstep2$object
       return(list(obj=object,indx=indx2))
@@ -72,6 +72,8 @@ InitialSubset0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,para,ncores,see
                           h = h, hsize = hsize,
                           alpha = alpha,
                           lambda = lambda,
+                          intercept=FALSE,
+                          scal=FALSE,
                           mc.cores = ncores)
    } else {
       subsets <- lapply(1:nsamp,
@@ -81,7 +83,9 @@ InitialSubset0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,para,ncores,see
                         index.subsets=index.subsets,
                         h = h, hsize = hsize,
                         alpha = alpha,
-                        lambda = lambda)
+                        lambda = lambda,
+                        intercept=FALSE,
+                        scal=FALSE)
    }
    return(list(subsets=subsets,index.subsets=index.subsets))
 }

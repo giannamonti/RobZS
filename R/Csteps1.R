@@ -1,5 +1,5 @@
 
-beginningCstep0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,ncores,csteps,tol,para,seed){
+beginningCstep0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,ncores,csteps,tol,intercept,scal,para,seed){
    ## internal function for Cstep0 and warmCsteps0
 
    #  source("objectiveFunc0.R")
@@ -7,19 +7,19 @@ beginningCstep0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,ncores,cste
    #  source("Csteps0.R")
    #  source("utilities.R")
 
-   H2 <- selectbest10zero(x,y,family,h,hsize,alpha,lambda,nsamp,s1,para,ncores,seed)
+   H2 <- selectbest10zero(x,y,family,h,hsize,alpha,lambda,nsamp,s1,para,ncores,intercept,scal,seed)
    if (para){
       lastbestindex <- mclapply(1:s1, function(zz,x,y,family,h,hsize,alpha,lambda,H2) {
          indexsubbest <- H2$idxbest[[zz]]
          objbest <- tol
-         cstep.mod <- CStep0(x,y,family,indexsubbest,h,hsize,alpha,lambda)
+         cstep.mod <- CStep0(x,y,family,indexsubbest,h,hsize,alpha,lambda,intercept,scal)
          countloop <- 0
          while ((cstep.mod$object>objbest) & (countloop<csteps)){
             countloop <- countloop+1
             objbest <- cstep.mod$object
             newindex <- cstep.mod$index
             beta <- cstep.mod$beta
-            cstep.mod <- CStep0(x,y,family,newindex,h,hsize,alpha,lambda)
+            cstep.mod <- CStep0(x,y,family,newindex,h,hsize,alpha,lambda,intercept,scal)
          }
          return(list(lastindex=newindex,objbest=objbest,countloop=countloop,
                      residu=cstep.mod$residu,beta=beta))
@@ -28,14 +28,14 @@ beginningCstep0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,ncores,cste
       lastbestindex <- lapply(1:s1, function(zz,x,y,family,h,hsize,alpha,lambda,H2) {
          indexsubbest <- H2$idxbest[[zz]]
          objbest <- tol
-         cstep.mod <- CStep0(x,y,family,indexsubbest,h,hsize,alpha,lambda)
+         cstep.mod <- CStep0(x,y,family,indexsubbest,h,hsize,alpha,lambda,intercept,scal)
          countloop <- 0
          while ((cstep.mod$object>objbest) & (countloop<csteps)){
             countloop <- countloop+1
             objbest <- cstep.mod$object
             newindex <- cstep.mod$index
             beta <- cstep.mod$beta
-            cstep.mod <- CStep0(x,y,family,newindex,h,hsize,alpha,lambda)
+            cstep.mod <- CStep0(x,y,family,newindex,h,hsize,alpha,lambda,intercept,scal)
          }
          return(list(lastindex=newindex,objbest=objbest,countloop=countloop,
                      residu=cstep.mod$residu,beta=beta))
@@ -53,7 +53,7 @@ beginningCstep0 <- function(x,y,family,h,hsize,alpha,lambda,nsamp,s1,ncores,cste
 
 
 CStep0 <-
-   function(x,y,family,indx,h,hsize,alpha,lambda)
+   function(x,y,family,indx,h,hsize,alpha,lambda,intercept,scal)
    {
       ## internal function
 
@@ -65,7 +65,7 @@ CStep0 <-
 
       if (family=="binomial"){
          fit <- zeroSum(x[indx,],y[indx],family,alpha=alpha,lambda=lambda,
-                        standardize=FALSE, intercept=FALSE)
+                        standardize=scal, intercept=intercept)
          beta <- fit$coef[[1]]
          beta <- matrix(beta[-1])
          resid <- -(y * x %*% beta) + log(1+exp(x %*% beta))
@@ -79,7 +79,7 @@ CStep0 <-
       }else if(family=="gaussian"){
          fit <- zeroSum(x[indx,],y[indx],family,
                         alpha=alpha,lambda=lambda,
-                        standardize=FALSE, intercept=FALSE)
+                        standardize=scal, intercept=intercept)
          beta <- fit$coef[[1]]
          beta <- matrix(beta[-1])
          resid <- y - predict(fit,x,exact=TRUE)

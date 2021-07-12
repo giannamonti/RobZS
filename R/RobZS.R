@@ -8,7 +8,7 @@ RobZS <-
             seed=NULL,plot=TRUE,
             repl=5,para=FALSE,ncores=1,
             del=0.0125,tol=-1e6,
-            type0=c("response","class"))
+            scal=FALSE,type0=c("response","class"))
    {
       matchedCall <- match.call()
       matchedCall[[1]] <- as.name("RobZS")
@@ -60,13 +60,13 @@ RobZS <-
 
 
       if (missing(lambdas) & family=="gaussian"){
-         lambdas <- zeroSum(x,y,family,alpha=alphas,standardize=FALSE,intercept=FALSE,lambdaSteps = 40)$lambda
+         lambdas <- zeroSum(x,y,family,alpha=alphas,standardize=scal,intercept=intercept,lambdaSteps = 40)$lambda
       } else if (missing(lambdas) & family=="binomial"){
-         lambdas <- zeroSum(x,y,family,alpha=alphas,standardize=FALSE,intercept=FALSE,lambdaSteps = 40)$lambda
+         lambdas <- zeroSum(x,y,family,alpha=alphas,standardize=scal,intercept=intercept,lambdaSteps = 40)$lambda
       }
 
       WarmCstepresults <- warmCsteps0(x,y,h,n,p,family,alphas,lambdas,hsize,
-                                      nsamp,s1,nCsteps,nfold,para,ncores,tol,seed)
+                                      nsamp,s1,nCsteps,nfold,para,ncores,tol,intercept,scal,seed)
       indexall <- WarmCstepresults$indexall
 
       if ((length(alphas)==1) & (length(lambdas)==1)){
@@ -85,11 +85,11 @@ RobZS <-
       if (family=="gaussian"){
          fit <- zeroSum(x[indexbest,],y[indexbest,],family,alpha=alphabest,
                         lambda=minlambdaCrit,
-                        standardize=FALSE,intercept=FALSE,type.measure="mse")}
+                        standardize=scal,intercept=intercept,type.measure="mse")}
       else if (family=="binomial"){
          fit <- zeroSum(x[indexbest,],y[indexbest,], family, alpha=alphabest,
                         lambda=minlambdaCrit,
-                        standardize=FALSE,intercept=FALSE)
+                        standardize=scal,intercept=intercept)
       }
 
       beta <- as.vector(coef(fit,"lambda.min"))
@@ -106,17 +106,17 @@ RobZS <-
          if (missing(lambdaw)){
             lambdaw <- zeroSum(x[which(raw.wt==1),],y[which(raw.wt==1)],
                                family,nFold=5,
-                               alpha=alphabest,standardize=FALSE,intercept=FALSE)$LambdaMin
+                               alpha=alphabest,standardize=scal,intercept=intercept)$LambdaMin
          } else if (!missing(lambdaw) & length(lambdaw)==1){
             lambdaw <- lambdaw
          } else if (!missing(lambdaw) & length(lambdaw)>1){
             lambdaw <- zeroSum(x[which(raw.wt==1),],y[which(raw.wt==1)],
                                family,lambda=lambdaw,nFold=5,
-                               alpha=alphabest,standardize=FALSE,intercept=FALSE)$LambdaMin
+                               alpha=alphabest,standardize=scal,intercept=intercept)$LambdaMin
          }
          fitw <- zeroSum(x[which(raw.wt==1),],y[which(raw.wt==1)],
                          family,alpha=alphabest,lambda=lambdaw,
-                         standardize=FALSE,intercept=FALSE)  ## now we take raw.wt instead of index
+                         standardize=scal,intercept=intercept)  ## now we take raw.wt instead of index
          # betaw=fitw$coef[[1]]
          betaw <- as.vector(coef(fitw))
 
@@ -148,7 +148,7 @@ RobZS <-
 
             lambdaw <- zeroSum(x[which(raw.wt==1),],y[which(raw.wt==1)],
                                family,nFold=5,alpha=alphabest,
-                               standardize=FALSE,intercept=FALSE)$LambdaMin
+                               standardize=scal,intercept=intercept)$LambdaMin
          }
          else if (!missing(lambdaw) & length(lambdaw)==1){
             lambdaw <- lambdaw
@@ -156,11 +156,11 @@ RobZS <-
          else if (!missing(lambdaw) & length(lambdaw)>1){
             lambdaw <- zeroSum(x[which(raw.wt==1),],y[which(raw.wt==1)],
                                family,lambda=lambdaw,nFold=5,alpha=alphabest,
-                               standardize=FALSE,intercept=FALSE)$Lambdamin
+                               standardize=scal,intercept=intercept)$Lambdamin
          }
          fitw <- zeroSum(x[which(raw.wt==1),],y[which(raw.wt==1)],
                          family,alpha=alphabest, lambda=lambdaw,
-                         standardize=FALSE,intercept=FALSE)
+                         standardize=scal,intercept=intercept)
          ### betaw <- fitw$coef[[1]]
          betaw <- as.vector(coef(fitw))
          minlambdaCrit <- fitw$LambdaMin
